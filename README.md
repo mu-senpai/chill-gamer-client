@@ -53,7 +53,7 @@ Chill Gamer is a user-friendly platform for gamers to explore and share reviews.
 
 ## Live Demo
 
-Explore the live version of Chill Gamer: [Live Demo](https://chill-gamer-646e9.web.app/)
+Explore the live version of Chill Gamer: [Live Demo](https://chill-gamer-web.netlify.app/)
 
 ## Challenges Implemented
 
