@@ -18,7 +18,7 @@ const TopPartners = () => {
                     <h2 className="text-3xl lg:text-5xl font-bold  text-center">
                         Our Top <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#F948B2] to-[#8758F1]">Partners</span>
                     </h2>
-                    <p className="text-center text-sm sm:text-base lg:text-lg text-[#8E82C9]">Everything you need to make gaming more enjoyable!</p>
+                    <p className="text-center text-sm sm:text-base lg:text-lg text-[#8E82C9]">Explore our trusted partners shaping the gaming world with us.</p>
                 </div>
             </Fade>
 
