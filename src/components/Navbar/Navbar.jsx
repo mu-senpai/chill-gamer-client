@@ -20,7 +20,7 @@ const Navbar = () => {
 
     useEffect(() => {
         if (user) {
-            fetch(`https://chill-gamer-server-alpha.vercel.app/users/${user.uid}`)
+            fetch(`https://chill-gamer-server-updated.vercel.app/users/${user.uid}`)
                 .then(res => res.json())
                 .then(data => setCurrentUser(data))
         }

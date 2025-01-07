@@ -25,7 +25,7 @@ const AllReviews = () => {
 
     const fetchReviews = async () => {
         setDataLoading(true);
-        const url = new URL('https://chill-gamer-server-alpha.vercel.app/reviews');
+        const url = new URL('https://chill-gamer-server-updated.vercel.app/reviews');
         
         if (sortBy) url.searchParams.append('sortBy', sortBy);
         if (selectedGenre) url.searchParams.append('genre', selectedGenre);

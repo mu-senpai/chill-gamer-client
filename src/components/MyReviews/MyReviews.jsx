@@ -13,7 +13,7 @@ const MyReviews = () => {
 
     useEffect(() => {
         setDataLoading(true);
-        fetch(`https://chill-gamer-server-alpha.vercel.app/reviews/email/${user.email}`)
+        fetch(`https://chill-gamer-server-updated.vercel.app/reviews/email/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setMyReviews(data);
@@ -33,7 +33,7 @@ const MyReviews = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`https://chill-gamer-server-alpha.vercel.app/reviews/id/${id}`, {
+                    fetch(`https://chill-gamer-server-updated.vercel.app/reviews/id/${id}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())

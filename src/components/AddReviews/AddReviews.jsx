@@ -19,7 +19,7 @@ const AddReviews = () => {
     useEffect(() => {
         setDataLoading(true);
         if (user) {
-            fetch(`https://chill-gamer-server-alpha.vercel.app/users/${user.uid}`)
+            fetch(`https://chill-gamer-server-updated.vercel.app/users/${user.uid}`)
                 .then(res => res.json())
                 .then(data => {
                     setCurrentUser(data);
@@ -43,7 +43,7 @@ const AddReviews = () => {
 
         const newReview = { name, email, gameTitle, genre, rating, publishYear, review, cover };
 
-        fetch('https://chill-gamer-server-alpha.vercel.app/reviews', {
+        fetch('https://chill-gamer-server-updated.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

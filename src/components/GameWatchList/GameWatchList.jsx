@@ -20,7 +20,7 @@ const GameWatchList = () => {
 
     useEffect(() => {
         setDataLoading(true);
-        fetch(`https://chill-gamer-server-alpha.vercel.app/watchlist/${user.email}`)
+        fetch(`https://chill-gamer-server-updated.vercel.app/watchlist/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setItems(data);
@@ -40,7 +40,7 @@ const GameWatchList = () => {
         })
             .then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`https://chill-gamer-server-alpha.vercel.app/watchlist/${id}`, {
+                    fetch(`https://chill-gamer-server-updated.vercel.app/watchlist/${id}`, {
                         method: 'DELETE',
                     })
                         .then(res => res.json())

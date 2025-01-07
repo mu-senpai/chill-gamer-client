@@ -21,14 +21,14 @@ const HighestRatedGames = () => {
     useEffect(() => {
         setDataLoading(true);
         if (screenWidth >= 768 && screenWidth < 1280) {
-            fetch('https://chill-gamer-server-alpha.vercel.app/highestratedgames_md')
+            fetch('https://chill-gamer-server-updated.vercel.app/highestratedgames_md')
                 .then(res => res.json())
                 .then(data => {
                     setReviews(data);
                     setDataLoading(false);
                 });
         } else {
-            fetch('https://chill-gamer-server-alpha.vercel.app/highestratedgames')
+            fetch('https://chill-gamer-server-updated.vercel.app/highestratedgames')
                 .then(res => res.json())
                 .then(data => {
                     setReviews(data);
