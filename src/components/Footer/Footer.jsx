@@ -1,7 +1,30 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/heading-logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Footer = () => {
+
+    const { user, logOutUser } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logOutUser()
+            .then(() => {
+                setTimeout(() => {
+                    navigate('/');
+                }, 5);
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: `${error.code}`,
+                    icon: 'error',
+                    confirmButtonText: 'Close'
+                })
+            });
+    }
+
     return (
         <footer className="footer footer-center bg-[#0B0223] text-white p-10">
 
@@ -14,8 +37,21 @@ const Footer = () => {
                     <br />
                     Providing reliable game reviews since 2024
                 </p>
-                <p className="text-[#FFFFFF99] text-sm sm:text-base xl:text-lg">Copyright © {new Date().getFullYear()} - All right reserved</p>
             </aside>
+
+            <nav className="grid grid-flow-col gap-4">
+                <Link to={`/`} className="link link-hover text-sm sm:text-base">Home</Link>
+                {
+                    user ? <>
+                        <Link to={`/s/addreviews`} className="link link-hover text-sm sm:text-base">Add Review</Link>
+                        <button onClick={handleLogout} className="link link-hover text-sm sm:text-base">Log Out</button>
+                    </>
+                    : <>
+                        <Link to={`/s/login`} className="link link-hover text-sm sm:text-base">Login</Link>
+                        <Link to={`/s/register`} className="link link-hover text-sm sm:text-base">Register</Link>
+                    </>
+                }
+            </nav>
 
             <nav>
                 <div className="grid grid-flow-col gap-4">
@@ -52,7 +88,12 @@ const Footer = () => {
 
                 </div>
             </nav>
-            
+
+            <aside>
+                <p className="text-[#FFFFFF99] text-sm sm:text-base xl:text-lg">Copyright © {new Date().getFullYear()} - All right reserved by Chill Gamer Ltd.</p>
+            </aside>
+
+
         </footer>
     );
 };

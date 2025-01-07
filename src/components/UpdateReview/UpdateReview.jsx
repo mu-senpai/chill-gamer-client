@@ -29,7 +29,7 @@ const UpdateReview = () => {
 
         const updatedReview = { name, email, gameTitle, genre, rating, publishYear, review, cover };
 
-        fetch(`https://chill-gamer-server-updated.vercel.app/reviews/id/${_id}`, {
+        fetch(`https://chill-gamer-server-alpha.vercel.app/reviews/id/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',

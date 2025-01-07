@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const Navbar = () => {
 
-    const {user, logOutUser} = useContext(AuthContext);
+    const { user, logOutUser } = useContext(AuthContext);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,29 +16,31 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
 
+    console.log(currentUser);
+
     useEffect(() => {
         if (user) {
-            fetch(`https://chill-gamer-server-updated.vercel.app/users/${user.uid}`)
-            .then(res => res.json())
-            .then(data => setCurrentUser(data))
+            fetch(`https://chill-gamer-server-alpha.vercel.app/users/${user.uid}`)
+                .then(res => res.json())
+                .then(data => setCurrentUser(data))
         }
     }, [user])
 
     const handleLogout = () => {
         logOutUser()
-        .then(() => {
-            setTimeout(() => {
-                navigate('/');
-            }, 5);
-        })
-        .catch((error) => {
-            Swal.fire({
-                title: 'Error!',
-                text: `${error.code}`,
-                icon: 'error',
-                confirmButtonText: 'Close'
+            .then(() => {
+                setTimeout(() => {
+                    navigate('/');
+                }, 5);
             })
-        });
+            .catch((error) => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: `${error.code}`,
+                    icon: 'error',
+                    confirmButtonText: 'Close'
+                })
+            });
     }
 
     // Initialize dark mode state from localStorage
@@ -75,31 +77,6 @@ const Navbar = () => {
 
     const NavigationList = (
         <>
-            <li>
-                <NavLink to={`/`} onClick={() => setIsMenuOpen(false)} className={({isActive}) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
-                    Home
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to={`/s/review`} onClick={() => setIsMenuOpen(false)} className={({isActive}) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
-                    All Reviews
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to={`/s/addreviews`} onClick={() => setIsMenuOpen(false)} className={({isActive}) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
-                    Add Review
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to={`/s/myreview`} onClick={() => setIsMenuOpen(false)} className={({isActive}) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
-                    My Reviews
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to={`/s/watchlist`} onClick={() => setIsMenuOpen(false)} className={({isActive}) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
-                    Game WatchList
-                </NavLink>
-            </li>
             {!user ? (
                 <>
                     <li>
@@ -122,17 +99,39 @@ const Navbar = () => {
                     </li>
                 </>
             ) : (
-                <li>
-                    <button
-                        onClick={() => {
-                            handleLogout();
-                            setIsMenuOpen(false);
-                        }}
-                        className="font-bold text-[#FF42A5] hover:text-[#9B5DE5] lg:btn lg:btn-sm lg:border-none lg:bg-gradient-to-r lg:from-[#ff42a4af] lg:to-[#FF42A5] lg:hover:bg-[#9B5DE5] lg:text-white lg:hover:text-white"
-                    >
-                        Log Out
-                    </button>
-                </li>
+                <>
+                    <li>
+                        <NavLink to={`/s/review`} onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
+                            All Reviews
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={`/s/addreviews`} onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
+                            Add Review
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={`/s/myreview`} onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
+                            My Reviews
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to={`/s/watchlist`} onClick={() => setIsMenuOpen(false)} className={({ isActive }) => `${isActive && 'text-[#FF42A5]'} hover:text-[#FF42A5]`}>
+                            Game WatchList
+                        </NavLink>
+                    </li>
+                    <li>
+                        <button
+                            onClick={() => {
+                                handleLogout();
+                                setIsMenuOpen(false);
+                            }}
+                            className="font-bold text-[#FF42A5] hover:text-[#9B5DE5] lg:btn lg:btn-sm lg:border-none lg:bg-gradient-to-r lg:from-[#ff42a4af] lg:to-[#FF42A5] lg:hover:bg-[#9B5DE5] lg:text-white lg:hover:text-white"
+                        >
+                            Log Out
+                        </button>
+                    </li>
+                </>
             )}
         </>
     );
@@ -270,7 +269,7 @@ const Navbar = () => {
             {/* Dropdown for Small Devices */}
             <div
                 className={`fixed top-0 left-0 w-full transition-transform duration-300 ${isMenuOpen && window.innerWidth < 768 ? "translate-y-0" : "translate-y-[-100%]"
-                    } bg-gray-900/85 backdrop-blur-md text-white h-96 ${user ? 'p-16' : 'p-11'} md:hidden`}
+                    } bg-gray-900/95 text-white p-14 ${user ? 'h-80' : 'h-44'} md:hidden`}
                 style={{ zIndex: 1000 }}
             >
                 {/* Close Button */}
@@ -305,7 +304,7 @@ const Navbar = () => {
                     {NavigationList}
                 </ul>
             </div>
-            
+
             <Tooltip style={{ backgroundColor: "rgb(255,66,165)", color: "#FFFFFF" }} id="nav-tooltip" />
         </nav>
     );

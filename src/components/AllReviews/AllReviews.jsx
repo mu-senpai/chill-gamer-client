@@ -25,7 +25,7 @@ const AllReviews = () => {
 
     const fetchReviews = async () => {
         setDataLoading(true);
-        const url = new URL('https://chill-gamer-server-updated.vercel.app/reviews');
+        const url = new URL('https://chill-gamer-server-alpha.vercel.app/reviews');
         
         if (sortBy) url.searchParams.append('sortBy', sortBy);
         if (selectedGenre) url.searchParams.append('genre', selectedGenre);
@@ -83,9 +83,9 @@ const AllReviews = () => {
                 </div>
             </Fade>
 
-            <div data-aos="fade-down" className="w-[90%] lg:w-[85%] mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div data-aos="fade-down" className="w-[90%] lg:w-[85%] mx-auto grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {reviews.map((review) => (
-                    <ReviewCard key={review._id} review={review} />
+                    <ReviewCard key={review._id} reviewData={review} />
                 ))}
             </div>
         </div>

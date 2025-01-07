@@ -65,7 +65,7 @@ const Register = () => {
                 const uid = result.user?.uid;
                 const newUser = { name, email, photo, createdAt, uid };
 
-                fetch('https://chill-gamer-server-updated.vercel.app/users', {
+                fetch('https://chill-gamer-server-alpha.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',
@@ -109,7 +109,7 @@ const Register = () => {
                 const uid = result.user?.uid;
                 const newUser = { name, email, photo, createdAt, uid };
 
-                fetch('https://chill-gamer-server-updated.vercel.app/users', {
+                fetch('https://chill-gamer-server-alpha.vercel.app/users', {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json',

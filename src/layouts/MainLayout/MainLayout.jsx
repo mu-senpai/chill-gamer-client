@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Fade } from "react-awesome-reveal";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -11,6 +11,8 @@ import LoadingPage from "../../components/LoadingPage/LoadingPage";
 import ScrollToTop from "../../components/ScrollToTop/ScrollToTop";
 import Aos from "aos";
 import "aos/dist/aos.css"
+import TopPartners from "../../components/TopPartners/TopPartners";
+import NewsletterSection from "../../components/NewsletterSection/NewsletterSection";
 
 Aos.init({
     duration: 400,
@@ -26,8 +28,9 @@ const MainLayout = () => {
         "background2.jpg",
         "background3.jpg",
     ];
-
+    
     const [currentBgIndex, setCurrentBgIndex] = useState(0);
+    const nextSectionRef = useRef(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -39,6 +42,12 @@ const MainLayout = () => {
 
     const handleSelect = (index) => {
         setCurrentBgIndex(index);
+    };
+
+    const scrollToNextSection = () => {
+        if (nextSectionRef.current) {
+            nextSectionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
     };
 
     if (loading) {
@@ -65,39 +74,51 @@ const MainLayout = () => {
                         <p className="w-[95%] sm:w-auto text-lg mb-6">
                             Explore and share game reviews effortlessly
                         </p>
-                        <Link
-                            to={`/s/review`}
+                        <a
+                            href="/s/review"
                             className="btn border-none bg-gradient-to-r from-[#ff42a4af] to-[#FF42A5] hover:bg-[#9B5DE5] text-white"
                         >
                             Get Started
-                        </Link>
+                        </a>
                     </Fade>
                 </div>
 
                 <div className="absolute w-full h-screen 2xl:max-h-[56rem] transition-all duration-1000 bg-black/30 top-0 left-0"></div>
 
                 {/* Indicators (dots) */}
-                <div className="absolute bottom-4 left-0 right-0 flex justify-center items-center space-x-2">
+                <div className="absolute z-10 bottom-4 left-0 right-0 flex justify-center items-center space-x-2">
                     {backgroundImages.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => handleSelect(index)}
                             className={`w-3 h-3 rounded-full ${currentBgIndex === index
-                                ? "bg-white"
-                                : "bg-gray-500"
+                                    ? "bg-white"
+                                    : "bg-gray-500"
                                 } hover:bg-gray-300`}
                         ></button>
                     ))}
                 </div>
+
+                {/* Scroll Down Indicator */}
+                <div className="absolute z-10 bottom-28 right-10 animate-bounce">
+                    <button
+                        className="btn btn-ghost btn-circle border-2 border-white text-white flex justify-center items-center hover:bg-white hover:text-black"
+                        onClick={scrollToNextSection}
+                    >
+                        ↓
+                    </button>
+                </div>
             </div>
 
             {/* Home Page Contents */}
-            <div className="w-full min-h-screen bg-[url(https://i.ibb.co.com/3rV0vwx/output-onlinepngtools-edit2.png)] bg-contain">
+            <div ref={nextSectionRef} className="w-full min-h-screen bg-[url(https://i.ibb.co.com/3rV0vwx/output-onlinepngtools-edit2.png)] bg-contain">
                 <Features></Features>
                 <HighestRatedGames></HighestRatedGames>
+                <TopPartners></TopPartners>
                 <Fade triggerOnce="true">
                     <Testimonials></Testimonials>
                 </Fade>
+                <NewsletterSection></NewsletterSection>
             </div>
 
             <Footer></Footer>

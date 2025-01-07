@@ -16,38 +16,49 @@ const HighestRatedGames = () => {
 
     const [reviews, setReviews] = useState([]);
     const { dataLoading, setDataLoading } = useContext(AuthContext);
+    const screenWidth = window.innerWidth;
 
     useEffect(() => {
-        fetch('https://chill-gamer-server-updated.vercel.app/highestratedgames')
-            .then(res => res.json())
-            .then(data => {
-                setReviews(data);
-                setDataLoading(false);
-            });
-    }, [])
+        setDataLoading(true);
+        if (screenWidth >= 768 && screenWidth < 1280) {
+            fetch('https://chill-gamer-server-alpha.vercel.app/highestratedgames_md')
+                .then(res => res.json())
+                .then(data => {
+                    setReviews(data);
+                    setDataLoading(false);
+                });
+        } else {
+            fetch('https://chill-gamer-server-alpha.vercel.app/highestratedgames')
+                .then(res => res.json())
+                .then(data => {
+                    setReviews(data);
+                    setDataLoading(false);
+                });
+        }
+    }, [screenWidth])
 
     if (dataLoading) {
         return <LoadingPage></LoadingPage>;
     }
 
     return (
-        <section className="pb-8">
+        <section className="w-[90%] lg:w-[85%] mx-auto pb-8">
 
             <Fade triggerOnce="true">
                 <div className="w-full space-y-3 lg:space-y-5 mb-8 sm:mb-10 lg:mb-12">
-                <h2 className="text-3xl lg:text-5xl font-bold text-center">
-                    Highest Rated <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#F948B2] to-[#8758F1]">Games</span>
-                </h2>
-                    <p className="w-[95%] sm:w-[90%] lg:w-[80%] mx-auto text-center text-sm sm:text-base lg:text-lg text-[#8E82C9]">Explore the top-rated games loved by our users!</p>
+                    <h2 className="text-3xl lg:text-5xl font-bold text-center">
+                        Highest Rated <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#F948B2] to-[#8758F1]">Games</span>
+                    </h2>
+                    <p className="text-center text-sm sm:text-base lg:text-lg text-[#8E82C9]">Explore the top-rated games loved by our users!</p>
                 </div>
             </Fade>
 
-            <div data-aos="fade-down" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 w-[90%] lg:w-[85%] mx-auto">
+            <div data-aos="fade-down" className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {
-                    reviews.map(review => <ReviewCard key={review._id} review={review}></ReviewCard>)
+                    reviews.map(review => <ReviewCard key={review._id} reviewData={review}></ReviewCard>)
                 }
             </div>
-            
+
         </section>
     );
 };

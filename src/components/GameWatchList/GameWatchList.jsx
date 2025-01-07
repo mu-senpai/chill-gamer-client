@@ -4,6 +4,8 @@ import LoadingPage from "../LoadingPage/LoadingPage";
 import { Fade } from "react-awesome-reveal";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 Aos.init({
     duration: 400,
@@ -18,13 +20,46 @@ const GameWatchList = () => {
 
     useEffect(() => {
         setDataLoading(true);
-        fetch(`https://chill-gamer-server-updated.vercel.app/watchlist/${user.email}`)
+        fetch(`https://chill-gamer-server-alpha.vercel.app/watchlist/${user.email}`)
             .then(res => res.json())
             .then(data => {
                 setItems(data);
                 setDataLoading(false);
             })
     }, [user, setDataLoading])
+
+    const handleDelete = id => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`https://chill-gamer-server-alpha.vercel.app/watchlist/${id}`, {
+                        method: 'DELETE',
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            if (data.deletedCount > 0) {
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your review has been deleted.",
+                                    icon: "success",
+                                    confirmButtonText: 'Close'
+                                });
+                                const newMyReviews = items.filter(review => review._id != id);
+                                setItems(newMyReviews);
+                            }
+                        })
+                }
+            });
+    }
 
     if (dataLoading) {
         return <LoadingPage></LoadingPage>;
@@ -62,13 +97,19 @@ const GameWatchList = () => {
                                         <td>{item.gameTitle}</td>
                                         <td>{item.genre}</td>
                                         <td>{item.publishYear}</td>
+                                        <td>
+                                            <button onClick={() => handleDelete(item._id)} className="btn btn-sm lg:btn-md bg-[#FF6B6B] hover:bg-red-500">
+                                                <FaTrash color="#FFFFFF" />
+                                            </button>
+
+                                        </td>
                                     </tr>
                                 ))
                             }
                         </tbody>
 
                     </table>
-                    
+
                     {
                         items.length === 0 && <p className="text-lg sm:text-xl lg:text-2xl 2xl:text-3xl font-semibold text-center text-[#8E82C9] py-5 sm:py-8 lg:py-10 xl:py-12">There is no item to show.</p>
                     }

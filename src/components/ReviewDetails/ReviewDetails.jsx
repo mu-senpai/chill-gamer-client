@@ -24,7 +24,7 @@ const ReviewDetails = () => {
     const [isWatchlisted, setIsWatchlisted] = useState(false);
 
     useEffect(() => {
-        fetch('https://chill-gamer-server-updated.vercel.app/watchlist')
+        fetch('https://chill-gamer-server-alpha.vercel.app/watchlist')
         .then(res => res.json())
         .then(data => {
             const listedItem = data.find(item => ((item.email === user.email) && (item.gameTitle === gameTitle)));
@@ -40,7 +40,7 @@ const ReviewDetails = () => {
         const email = user.email;
         const newItem = { email, gameTitle, genre, publishYear };
 
-        fetch('https://chill-gamer-server-updated.vercel.app/watchlist', {
+        fetch('https://chill-gamer-server-alpha.vercel.app/watchlist', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -49,7 +49,7 @@ const Testimonials = () => {
   return (
     <section id="testimonials" className="py-16 px-6">
 
-      <h2 className="text-3xl lg:text-5xl font-bold mb-4 sm:mb-6 lg:mb-10 text-center">
+      <h2 className="text-3xl lg:text-5xl font-bold mb-6 sm:mb-8 lg:mb-12 text-center">
         What <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#F948B2] to-[#8758F1]">Our Users</span> Say
       </h2>
 
